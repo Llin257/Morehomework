@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.3.5/tabletop.min.js"></script>
+    <script>
+			$(document).ready(function(){
+				  var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1XkivAaHr0N2n8BXqA4Zz0hCiBWyIdLX2Qp5KZEe5z4w/pubhtml';
+				  var getData = function () {
+				    Tabletop.init({ 
+				    	"key": public_spreadsheet_url,
+				        "callback": processData,
+				        "simpleSheet": true
+				    });
+				  }
+				  var processData = function(data){
+			        	console.log(data)
+			        
+			      var budgetcounter1to2k = 0
+			      var budgetcounter2to5k = 0
+			      var budgetcounterless1k = 0
+			      var budgetcountermore5k = 0
+			      var vakaylengthcounter = 0
+			      var activitiescounter = 0
+			      var Beijingcounter = 0
+			      var Pariscounter = 0
+			      var Seoulcounter = 0
+			      var HongKongcounter = 0
+			      var Bahamascounter = 0
+			      var Edinburghcounter = 0
+			      var Barcelonacounter = 0
+			      var Jerusalemcounter = 0
+			      var Mauicounter = 0
+		
+			for(i=0; i< data.length; i++){
+					var budgetestimate = data[i].estimatebudgetperpersonincludetransportationdininghotelmiscellaneousfees;
+					if (data[i].estimatebudgetperpersonincludetransportationdininghotelmiscellaneousfees === "$1-2k"){
+						var budgetcounter1to2k = budgetcounter1to2k + 1
+					}
+					else if(data[i].estimatebudgetperpersonincludetransportationdininghotelmiscellaneousfees === "$2-5k") {
+						var budgetcounter2to5k = budgetcounter2to5k + 1
+					}
+					else if(data[i].estimatebudgetperpersonincludetransportationdininghotelmiscellaneousfees === ">$5k") {
+						var budgetcountermore5k = budgetcountermore5k + 1
+					}
+					else{
+						var budgetcounterless1k = budgetcounterless1k + 1
+					}
+				}
+
+					var allbudgetcounters = [
+						budgetcounter1to2k, 
+			      		budgetcounter2to5k,
+			      		budgetcounterless1k,
+			      		budgetcountermore5k 
+						];
+					var maxy = Math.max.apply(Math, allbudgetcounters);
+					if(maxy === budgetcounter1to2k){
+						$("body").append( "<h1>The average amount spent on a vacation is $1-2k<h1>");
+						document.body.style.backgroundColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+					}
+					else if(maxy === budgetcounter2to5k){
+						$("body").append("<h1>The average amount spent on a vacation is $2-5k<h1>");
+						document.body.style.backgroundColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+					}
+					else if(maxy === budgetcountermore5k){
+						$("body").append("<h1>The average amount spent on a vacation is more than $5k<h1>");
+						document.body.style.backgroundColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+					}
+					else{
+						$("body").append("<h1>The average amount spent on a vacation is less than $1k<h1>");
+						document.body.style.backgroundColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+					}
+
+
+					for(i=0; i< data.length; i++){
+					var popplaces = data[i].whichofthefollowingplaceshaveyoutraveledtocheckallthatapply;
+					if (data[i].ewhichofthefollowingplaceshaveyoutraveledtocheckallthatapply === "Beijing"){
+						var Beijingcounter = Beijingcounter + 1
+					}
+					else if(data[i].whichofthefollowingplaceshaveyoutraveledtocheckallthatapply === "Seoul") {
+						var Seoulcounter = Seoulcounter + 1
+					}
+					else if(data[i].whichofthefollowingplaceshaveyoutraveledtocheckallthatapply === "Barcelona") {
+						var Barcelonacounter = Barcelonacounter + 1
+					}
+					else if(data[i].whichofthefollowingplaceshaveyoutraveledtocheckallthatapply === "Hong Kong") {
+						var HongKongcounter = HongKongcounter + 1
+					}
+					else if(data[i].whichofthefollowingplaceshaveyoutraveledtocheckallthatapply === "Paris") {
+						var Pariscounter = Pariscounter + 1
+					}
+					else if(data[i].whichofthefollowingplaceshaveyoutraveledtocheckallthatapply === "Bahamas") {
+						var Barcelonacounter = Bahamascounter + 1
+					}
+					else if(data[i].whichofthefollowingplaceshaveyoutraveledtocheckallthatapply === "Edinburgh") {
+						var Edinburghcounter = Edinburghcounter + 1
+					}
+					else if(data[i].whichofthefollowingplaceshaveyoutraveledtocheckallthatapply === "Jerusalem") {
+						var Jerusalemcounter = Jerusalemcounter + 1
+					}
+					else if(data[i].whichofthefollowingplaceshaveyoutraveledtocheckallthatapply === "Maui") {
+						var Mauicounter = Mauicounter + 1
+					}
+					else{
+						var nonlistedcounter =nonlistedcounter +1
+					}
+				}
+					var topplaces=[
+						Beijingcounter,
+			      		Pariscounter,
+			      		Seoulcounter,
+			      		HongKongcounter,
+			     		Bahamascounter,
+			      		Edinburghcounter,
+			      		Barcelonacounter,
+			      		Jerusalemcounter,
+			       		Mauicounter,
+			       		nonlistedcounter
+					];
+
+
+					var popplaces = Math.max.apply(Math, topplaces);
+					$("body").append("<h1> The most popular vacation spot is: <h1>");
+					if(popplaces === Beijingcounter){
+						$("body").append( "<h1> Beijing <h1>");
+						$("body").append("<img src=http://www.worldpopulationstatistics.com/wp-content/uploads/2013/09/beijing-population-2013.jpg />");
+					}
+					else if(popplaces === Pariscounter){
+						$("body").append("<h1> Paris <h1>");
+						$("body").append("<img src=http://prodigy.umbrella.al/travel1/wp-content/uploads/sites/9/2014/08/Alexandtre-trois-paris-serge-ramelli.jpg />");
+					}
+					else if(popplaces === Seoulcounter){
+						$("body").append("<h1> Seoul <h1>");
+						$("body").append("<img src=http://dulichhe.biz/wp-content/uploads/2014/05/Seoul1.jpg />");
+					}
+					else if(popplaces === HongKongcounter){
+						$("body").append("<h1> Hong Kong <h1>");
+						$("body").append("<img src=http://www.hotelroomsearch.net/im/2014/11/hong-kong.jpg />");
+					}
+					else if(popplaces === Bahamascounter){
+						$("body").append("<h1> Bahamas <h1>");
+						$("body").append("<img src=http://cdn.i24news.tv/upload/image/JerusalemWesternWallDomesmall.jpg />");
+					}
+					else if(popplaces === Jerusalemcounter){
+						$("body").append("<h1> Jerusalem! <h1>");
+						$("body").append("<img src=http://cdn.i24news.tv/upload/image/JerusalemWesternWallDomesmall.jpg />");
+					}
+					else if(popplaces === Mauicounter){
+						$("body").append("<h1> Maui <h1>");
+						$("body").append("<img src=http://www.astonhotels.com/assets/slides/690x380-Maui-Beach-01.jpg />");
+					}
+					else{
+						$("body").append("<h1> None of the listed choices! <h1>");
+						$("body").append("<img src=http://www.astonhotels.com/assets/slides/690x380-Maui-Beach-01.jpg />");
+					}
+					
+			}
+			getData();
+		});
+	</script>
+	<style>
+
+
+	</style>
+  </head>
+  <body>
+  </body>
+</html>
